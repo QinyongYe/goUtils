@@ -20,7 +20,7 @@ func main() {
 
 	vUrl := "https://tech-cloud.microstrategy.com/api/vApp/vapp-" + vappids[0] + "/leaseSettingsSection/"
 	header := http.Header{}
-	header.Add("Authorization", getAuthHeader("qye", "technology", "mstr.1984"))
+	header.Add("Authorization", getAuthHeader("", "technology", ""))
 	header.Add("Accept", "application/*+xml;version=1.5")
 	req, error := http.NewRequest("GET", vUrl, nil)
 	if error != nil {
