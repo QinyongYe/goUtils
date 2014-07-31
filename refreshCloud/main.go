@@ -53,7 +53,7 @@ func main() {
 
 	// list vms
 	header.Add("x-vcloud-authorization", res.Header.Get("x-vcloud-authorization"))
-	listVms, error := http.NewRequest("GET", "https://tech-cloud.microstrategy.com/api/query?type=vApp&filter=(ownerName==qye)", nil)
+	listVms, error := http.NewRequest("GET", "https://tech-cloud.microstrategy.com/api/query?type=vApp&filter=(ownerName==" + user + ")", nil)
 	if error != nil {
 		panic(error)
 	}
