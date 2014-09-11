@@ -12,6 +12,7 @@ import (
 var view = "~/qye_unix_view0/"
 var projects string
 var machines string
+var oneflag bool
 
 func main() {
 	var cmdBuild = &cobra.Command{
@@ -22,7 +23,7 @@ func main() {
 		},
 	}
 	cmdBuild.Flags().StringVarP(&projects, "projects", "p", "Common/Search/FacebookSearchProvider,Common/Search/FacebookSearchManager", "the prjects to build")
-
+	cmdBuild.Flags().BoolVarP(&oneflag, "one", "o", true, "only build the project, not dependant projects")
 	var cmdClean = &cobra.Command{
 		Use:   "clean",
 		Short: "clean projects",
@@ -101,11 +102,16 @@ var run = func(genScripts func(string) []string) {
 }
 
 var buildScripts = func (project string) []string {
+	one := ""
+	if oneflag {
+		one = " -one "
+	}
+
 	return []string{
 		// remove BuildControl.db, or it will complains in linux
 				"rm " + view + "BuildScripts/BuildControl/BuildControl.db -f",
 				"cd " + view + project, // cd project folder
-			view + "BuildScripts/one.pl -one -notest", // one.pl
+			view + "BuildScripts/one.pl" + one + " -notest > /dev/null", // one.pl
 		"make -j 4 -f Makefile`uname`", // make
 	}
 }

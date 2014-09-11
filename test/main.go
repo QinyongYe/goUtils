@@ -1,11 +1,16 @@
 package main
 
-import "fmt"
-
 import (
+	. "github.com/cyfdecyf/color"
+	"fmt"
 )
 
 func main() {
-	fmt.Println(string(2))                 // illegal: 1.2 cannot be represented as an int
-//	string(65.0)             // illegal: 65.0 is not an integer constant
+	colorF := []func(string) string{
+		Red, Green, Yellow, Blue, Magenta, Cyan,
+	}
+
+	for _, f := range colorF {
+		fmt.Println(f("sdfsdgsdg"))
+	}
 }
